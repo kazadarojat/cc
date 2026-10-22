@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CogniCare — Pemantauan Kognitif Multimodal & Clinical Decision Support</title>
+<meta name="description" content="CogniCare: prototipe riset untuk deteksi dini penurunan kognitif melalui tiga dimensi pengukuran — performa objektif, fungsi subjektif, dan perilaku digital." />
+<style>
+  :root{
+    --paper:#f4f5f4;
+    --card:#ffffff;
+    --ink:#12181a;
+    --muted:#5d6a68;
+    --line:#e0e4e2;
+    --teal:#0e6b61;
+    --teal-soft:#e8f0ee;
+    --amber:#8a5a12;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(14,107,97,.25)}
+  a:hover{border-bottom-color:var(--teal)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header.top{border-bottom:1px solid var(--line);background:rgba(244,245,244,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+  .top-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+  .mark{width:26px;height:26px;border:1.5px solid var(--teal);border-radius:7px;display:grid;place-items:center;color:var(--teal);font-size:12px;font-weight:700}
+  .nav{display:flex;gap:20px;font-size:13.5px}
+  .nav a{border:0;color:var(--muted)}
+  .nav a:hover{color:var(--teal)}
+  .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:clamp(30px,4.6vw,50px);line-height:1.1;letter-spacing:-.03em;margin:14px 0 18px;font-weight:600;max-width:20ch}
+  h2{font-size:clamp(21px,2.6vw,28px);letter-spacing:-.02em;margin:0 0 8px;font-weight:600}
+  h3{font-size:15.5px;margin:0 0 6px;font-weight:600;letter-spacing:-.01em}
+  p{margin:0 0 12px}
+  .lede{font-size:17.5px;color:var(--muted);max-width:62ch}
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .hero{padding:76px 0 56px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:end}
+  @media(max-width:820px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;padding:11px 18px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--teal)}
+  .btn:hover{background:#0b574f;border-color:#0b574f}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff;border-color:#cfd6d3}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .facts{border-left:1px solid var(--line);padding-left:22px}
+  .facts dl{margin:0;display:grid;gap:14px}
+  .facts dt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .facts dd{margin:2px 0 0;font-size:15px;letter-spacing:-.01em}
+  .notice{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:14px 16px;font-size:14px;color:#3d4a48;margin-top:26px}
+  .notice b{color:var(--amber)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .card .num{font-size:11px;letter-spacing:.12em;color:var(--teal);font-weight:700}
+  .card p{font-size:14px;color:var(--muted);margin:6px 0 0}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;border-top:1px solid var(--line)}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+  .step{padding:20px 18px 20px 0;border-right:1px solid var(--line)}
+  .step:last-child{border-right:0}
+  @media(max-width:820px){.step{border-right:0;border-bottom:1px solid var(--line)}}
+  .step span{font-size:11px;color:var(--muted);letter-spacing:.1em;font-weight:600}
+  .step h3{margin-top:8px}
+  .step p{font-size:13.5px;color:var(--muted);margin:0}
+  .shots{display:grid;gap:26px;margin-top:30px}
+  .shot{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .shot-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fafbfa}
+  .dots{display:flex;gap:5px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#dfe3e1}
+  .url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--muted);margin-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .open{margin-left:auto;font-size:12px;border:0;white-space:nowrap}
+  iframe{display:block;width:100%;border:0;background:#fff}
+  .cap{padding:12px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .cap b{color:var(--ink);font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:24px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  ul.clean li{padding-left:18px;position:relative;font-size:14.5px;color:var(--muted)}
+  ul.clean li:before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  ul.clean li b{color:var(--ink);font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--teal-soft);color:#0b574f;padding:1px 5px;border-radius:4px}
+  footer{padding:40px 0 64px;font-size:13px;color:var(--muted)}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:3px 10px;font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand"><span class="mark">C</span> CogniCare</div>
+    <nav class="nav">
+      <a href="#pratinjau">Pratinjau</a>
+      <a href="#cara">Cara kerja</a>
+      <a href="#arsitektur">Arsitektur</a>
+      <a href="https://github.com/kazadarojat/cc">Repositori</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <div class="label">Prototipe riset · Klinik memori</div>
+      <h1>Menangkap penurunan kognitif sebelum ia terlihat.</h1>
+      <p class="lede">CogniCare menggabungkan tiga dimensi pengukuran — performa objektif, fungsi subjektif, dan perilaku digital — menjadi satu staging longitudinal dengan panel bukti yang bisa ditelusuri klinisi.</p>
+      <div class="row">
+        <a class="btn" href="#pratinjau">Lihat pratinjau UI →</a>
+        <a class="btn ghost" href="https://github.com/kazadarojat/cc">Kode sumber</a>
+      </div>
+      <div class="notice">
+        <b>Catatan jujur soal halaman ini.</b> GitHub Pages hanya menyajikan berkas statis. CogniCare aslinya aplikasi Next.js dengan basis data Prisma, sesi, dan server action — itu tidak bisa dijalankan di Pages. Jadi yang Anda lihat di bawah adalah <b>snapshot statis dari UI asli</b> (data demo, tanpa interaksi), bukan aplikasi hidup. Untuk versi yang berjalan penuh, aplikasi perlu di-deploy ke host Node/Next.js.
+      </div>
+    </div>
+    <aside class="facts">
+      <dl>
+        <div><dt>Populasi sasaran</dt><dd>Lansia ≥60 tahun di klinik memori</dd></div>
+        <div><dt>Dimensi</dt><dd>Objektif · Subjektif · Perilaku</dd></div>
+        <div><dt>Keluaran</dt><dd>Staging + derajat keyakinan</dd></div>
+        <div><dt>Status</dt><dd><span class="tag">Prototipe MVP</span></dd></div>
+      </dl>
+    </aside>
+  </div>
+</div>
+
+<section id="apa">
+  <div class="wrap">
+    <div class="label">Masalah</div>
+    <h2>Satu skor kognitif tidak cukup.</h2>
+    <p class="lede">Skrining tunggal sering menangkap penurunan setelah fungsi sehari-hari terganggu, dan hasil tes yang “normal” bisa menyembunyikan keluhan yang konsisten. CogniCare menempatkan tiga sumber sinyal berdampingan agar diskrepansi antar-sumber menjadi informasi, bukan kebisingan.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">DIMENSI 01</div>
+        <h3>Performa objektif</h3>
+        <p>Baterai NeuroCheck: memori kerja, kecepatan proses, fungsi eksekutif — dengan metrik waktu reaksi dan akurasi, bukan hanya jawaban benar.</p>
+      </div>
+      <div class="card">
+        <div class="num">DIMENSI 02</div>
+        <h3>Fungsi subjektif</h3>
+        <p>Kuesioner tervalidasi dan buku harian keluhan, ditimbang terhadap norma usia-pendidikan agar keluhan tidak dibaca mentah.</p>
+      </div>
+      <div class="card">
+        <div class="num">DIMENSI 03</div>
+        <h3>Perilaku digital</h3>
+        <p>Pola interaksi aplikasi — konsistensi latihan, kelambatan respons, perubahan ritme — sebagai sinyal pasif antar-kunjungan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cara">
+  <div class="wrap">
+    <div class="label">Alur klinis</div>
+    <h2>Dari sesi pasien ke keputusan klinisi.</h2>
+    <div class="steps">
+      <div class="step"><span>01</span><h3>Pasien mengerjakan</h3><p>NeuroCheck dan kuesioner di portal pasien, dengan persetujuan yang tercatat.</p></div>
+      <div class="step"><span>02</span><h3>Mesin menilai</h3><p>Staging deterministik dan konsisten: aturan ambang, bukan kotak hitam.</p></div>
+      <div class="step"><span>03</span><h3>Klinisi meninjau</h3><p>Dasbor kohort, tren longitudinal, dan panel bukti per sinyal.</p></div>
+      <div class="step"><span>04</span><h3>Diskrepansi disorot</h3><p>Bila sumber bertentangan, sistem menandai dan menjelaskan mengapa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pratinjau">
+  <div class="wrap">
+    <div class="label">Pratinjau antarmuka</div>
+    <h2>Snapshot UI asli — data demo.</h2>
+    <p class="lede">Dirender dari aplikasi yang berjalan, lalu dibekukan menjadi HTML statis. Tautan di dalam snapshot sebagian dinonaktifkan; gunakan tombol “buka penuh” untuk melihat halaman utuh.</p>
+
+    <div class="shots">
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/clinician — memory clinic cohort</span><a class="open" href="snap/dashboard.html">buka penuh ↗</a></div>
+        <iframe src="snap/dashboard.html" height="620" loading="lazy" title="Dasbor klinisi"></iframe>
+        <div class="cap"><b>Dasbor kohort.</b> Daftar pasien dengan status pemantauan, staging terakhir, dan penanda pasien yang perlu ditinjau.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/clinician/patients/[id] — ringkasan longitudinal</span><a class="open" href="snap/patient-sari.html">buka penuh ↗</a></div>
+        <iframe src="snap/patient-sari.html" height="760" loading="lazy" title="Ringkasan pasien"></iframe>
+        <div class="cap"><b>Ringkasan pasien.</b> Ketiga dimensi berdampingan, tren antar-sesi, dan rekomendasi tindak lanjut.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/clinician/patients/[id]/evidence — panel bukti</span><a class="open" href="snap/evidence.html">buka penuh ↗</a></div>
+        <iframe src="snap/evidence.html" height="720" loading="lazy" title="Panel bukti"></iframe>
+        <div class="cap"><b>Panel bukti.</b> Setiap kesimpulan membawa jejak ke sinyal sumbernya, sehingga klinisi dapat menolak atau menerima dengan alasan.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/clinician/patients/[id] — diskrepansi antar-sumber</span><a class="open" href="snap/patient-budi.html">buka penuh ↗</a></div>
+        <iframe src="snap/patient-budi.html" height="720" loading="lazy" title="Kasus diskrepansi"></iframe>
+        <div class="cap"><b>Kasus diskrepansi.</b> Performa objektif baik tetapi keluhan subjektif menonjol — pola yang mudah terlewat bila hanya satu instrumen dipakai.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/patient — portal pasien</span><a class="open" href="snap/patient-portal.html">buka penuh ↗</a></div>
+        <iframe src="snap/patient-portal.html" height="560" loading="lazy" title="Portal pasien"></iframe>
+        <div class="cap"><b>Portal pasien.</b> Tugas harian, jadwal, dan riwayat — dirancang agar tetap terbaca pada penglihatan dan motorik terbatas.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/patient/neurocheck — baterai kognitif</span><a class="open" href="snap/neurocheck.html">buka penuh ↗</a></div>
+        <iframe src="snap/neurocheck.html" height="560" loading="lazy" title="NeuroCheck"></iframe>
+        <div class="cap"><b>NeuroCheck.</b> Instruksi singkat, satu tugas per layar, metrik waktu reaksi terekam di latar.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/clinician/research — evaluasi model kohort</span><a class="open" href="snap/research.html">buka penuh ↗</a></div>
+        <iframe src="snap/research.html" height="620" loading="lazy" title="Tampilan riset"></iframe>
+        <div class="cap"><b>Tampilan riset.</b> Kinerja mesin staging pada kohort demo: matriks kebingungan, kalibrasi, dan contoh kesalahan.</div>
+      </div>
+
+      <div class="shot">
+        <div class="shot-bar"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span class="url">/login — pintu masuk klinisi &amp; pasien</span><a class="open" href="snap/login.html">buka penuh ↗</a></div>
+        <iframe src="snap/login.html" height="520" loading="lazy" title="Halaman masuk"></iframe>
+        <div class="cap"><b>Masuk.</b> Dua peran, dua jalur: klinisi ke dasbor kohort, pasien ke tugas harian.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="arsitektur">
+  <div class="wrap">
+    <div class="label">Di balik layar</div>
+    <h2>Arsitektur yang bisa diaudit.</h2>
+    <div class="grid2">
+      <div>
+        <ul class="clean">
+          <li><b>Next.js 15 App Router</b> — server component untuk halaman klinis, klien untuk tugas interaktif.</li>
+          <li><b>Mesin staging deterministik</b> — ambang dan aturan eksplisit, dapat direproduksi dan diuji unit.</li>
+          <li><b>Prisma + SQLite</b> — skema relasional untuk pasien, sesi, item, dan jejak audit.</li>
+          <li><b>Sesi berbasis cookie</b> dengan pemisahan peran klinisi dan pasien.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="clean">
+          <li><b>Panel bukti</b> — setiap label membawa rujukan ke sinyal dan ambang yang memicunya.</li>
+          <li><b>Mode simulasi</b> — menguji skenario hipotetis tanpa mengubah data pasien nyata.</li>
+          <li><b>Etika &amp; batasan</b> — alat bantu penilaian, bukan pengganti diagnosis; data demo sintetis.</li>
+          <li><b>Reproducible build</b> — <code>npm run db:reset</code> lalu <code>npm run build</code>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>CogniCare · prototipe riset 2026 · data pada pratinjau ini sintetis.</div>
+    <div><a href="https://github.com/kazadarojat/cc">github.com/kazadarojat/cc</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
