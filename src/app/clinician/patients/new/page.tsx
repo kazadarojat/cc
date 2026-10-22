@@ -2,8 +2,6 @@ import { db } from "@/lib/db";
 import { Eyebrow } from "@/components/ui";
 import { PatientForm } from "@/components/clinician/PatientForm";
 
-export const dynamic = "force-dynamic";
-
 export default async function NewPatientPage() {
   const doctors = await db.clinician.findMany({ orderBy: { name: "asc" }, select: { id: true, name: true } });
   return (

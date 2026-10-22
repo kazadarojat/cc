@@ -3,10 +3,8 @@ import { getSession } from "@/lib/session";
 import { Eyebrow } from "@/components/ui";
 import { NeuroCheckBattery } from "@/components/neurocheck/NeuroCheckBattery";
 
-export const dynamic = "force-dynamic";
-
 export default async function NeuroCheckPage() {
-  const session = await getSession();
+  const session = await getSession("patient");
   if (!session || session.role !== "patient") redirect("/login");
   return (
     <div className="flex flex-col gap-5">

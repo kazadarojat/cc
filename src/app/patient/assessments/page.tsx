@@ -4,10 +4,8 @@ import { fmtDate } from "@/lib/format";
 import { ButtonLink, Card, Eyebrow } from "@/components/ui";
 import { SpeechCapture } from "@/components/SpeechCapture";
 
-export const dynamic = "force-dynamic";
-
 export default async function AssessmentsPage() {
-  const session = await getSession();
+  const session = await getSession("patient");
   const patientId = session!.subjectId;
   const [lastSpeech, lastTask, lastAD8, lastSCD, consents] = await Promise.all([
     db.speechSample.findFirst({ where: { patientId }, orderBy: { capturedAt: "desc" } }),

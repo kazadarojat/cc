@@ -1,8 +1,11 @@
 import { db } from "@/lib/db";
 import { Eyebrow } from "@/components/ui";
 import { PatientForm } from "@/components/clinician/PatientForm";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 export default async function EditPatientPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

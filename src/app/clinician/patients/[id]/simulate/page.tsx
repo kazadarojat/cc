@@ -3,8 +3,11 @@ import { analyzePatient, loadBundle } from "@/lib/engine";
 import { Disclaimer, Eyebrow } from "@/components/ui";
 import { Simulator } from "@/components/clinician/Simulator";
 import type { ScenarioResult } from "@/lib/admin-actions";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 export default async function SimulatePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

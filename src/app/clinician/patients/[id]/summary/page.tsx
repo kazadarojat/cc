@@ -3,8 +3,11 @@ import { fmtDate, titleCase } from "@/lib/format";
 import { Badge, Card, Disclaimer, Eyebrow } from "@/components/ui";
 import { latestInference, buildTimeline } from "@/lib/queries";
 import { CopyButton } from "@/components/CopyButton";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 export default async function SummaryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

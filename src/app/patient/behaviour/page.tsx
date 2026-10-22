@@ -7,10 +7,8 @@ import { Card, Eyebrow } from "@/components/ui";
 import { consentRows } from "@/lib/queries";
 import { BehaviourView, type BehaviourSummary } from "@/components/BehaviourView";
 
-export const dynamic = "force-dynamic";
-
 export default async function BehaviourPage() {
-  const session = await getSession();
+  const session = await getSession("patient");
   if (!session || session.role !== "patient") redirect("/login");
   const patientId = session.subjectId;
 

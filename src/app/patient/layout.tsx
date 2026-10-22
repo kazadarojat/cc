@@ -4,10 +4,8 @@ import { getSession } from "@/lib/session";
 import { TopBar } from "@/components/TopBar";
 import { PatientNav } from "@/components/PatientNav";
 
-export const dynamic = "force-dynamic";
-
 export default async function PatientLayout({ children }: { children: React.ReactNode }) {
-  const session = await getSession();
+  const session = await getSession("patient");
   if (!session) redirect("/login");
   if (session.role !== "patient") redirect("/clinician");
   const exists = await db.patient.findUnique({ where: { id: session.subjectId }, select: { id: true } });

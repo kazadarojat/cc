@@ -4,10 +4,8 @@ import { fmtDate, titleCase } from "@/lib/format";
 import { Badge, Eyebrow } from "@/components/ui";
 import { DiaryForm } from "@/components/DiaryForm";
 
-export const dynamic = "force-dynamic";
-
 export default async function DiaryPage() {
-  const session = await getSession();
+  const session = await getSession("patient");
   const patientId = session!.subjectId;
   const entries = await db.diaryEntry.findMany({
     where: { patientId },

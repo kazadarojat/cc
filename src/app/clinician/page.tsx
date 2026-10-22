@@ -4,8 +4,6 @@ import { ageFrom, pct, STATE_TONE } from "@/lib/format";
 import { Badge, Dot, PageHeader, StatStrip, Stat, Disclaimer } from "@/components/ui";
 import { inferenceHistory } from "@/lib/queries";
 
-export const dynamic = "force-dynamic";
-
 function riskTone(r: number | null): "ok" | "watch" | "alert" | "uncertain" {
   if (r == null) return "uncertain";
   if (r >= 0.35) return "alert";

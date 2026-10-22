@@ -7,8 +7,11 @@ import { StageProbabilityBar } from "@/components/charts/StageProbabilityBar";
 import { BiomarkerTrajectory, type BiomarkerPoint } from "@/components/charts/BiomarkerTrajectory";
 import { TrajectoryMap, type TrajectoryPoint } from "@/components/charts/TrajectoryMap";
 import { FeatureContributionsCard } from "@/components/clinician/DashCards";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 const CONTRIB_TONE: Record<string, "ok" | "watch" | "alert"> = {
   Controlled: "ok",

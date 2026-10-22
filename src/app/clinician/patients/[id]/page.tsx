@@ -11,8 +11,12 @@ import {
 } from "@/components/clinician/DashCards";
 import { buildTimeline, inferenceHistory, latestInference, openAlerts } from "@/lib/queries";
 import { rerunInference } from "@/lib/actions";
+import { patientStaticParams } from "@/lib/static-params";
+import { PatientActionForm } from "@/components/PatientActionForm";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 type Tone = "ok" | "watch" | "alert" | "uncertain";
 
@@ -106,14 +110,14 @@ export default async function OverviewPage({ params }: { params: Promise<{ id: s
         title="Overview"
         sub="Cognitive state, biological AD evidence and progression risk are reported separately and never fused into one number."
         actions={
-          <form action={rerunInference.bind(null, id)}>
+          <PatientActionForm patientId={id} kind="rerun">
             <button
               type="submit"
               className="inline-flex h-8 items-center rounded-md border border-[var(--border-strong)] px-3 text-[13px] font-medium text-ink hover:bg-[var(--surface-2)]"
             >
               Re-run analysis
             </button>
-          </form>
+          </PatientActionForm>
         }
       />
 

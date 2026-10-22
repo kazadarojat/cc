@@ -1,16 +1,19 @@
+import Link from "next/link";
 import { db } from "@/lib/db";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-export const dynamic = "force-dynamic";
+const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
 const ROLES = [
   {
     role: "clinician",
+    href: "/clinician",
     title: "Clinician workspace",
     body: "Cohort overview, risk triage, inference review.",
   },
   {
     role: "patient",
+    href: "/patient",
     title: "Patient portal",
     body: "Check-ins, diary, and personal results.",
   },
@@ -25,7 +28,7 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
-  const { error } = await searchParams;
+  const error = IS_STATIC ? undefined : (await searchParams)?.error;
   const [clinicianCount, patientCount] = await Promise.all([
     db.clinician.count(),
     db.patient.count(),
@@ -39,13 +42,17 @@ export default async function LoginPage({
         <div>
           <h1 className="text-[19px] font-semibold tracking-[-0.01em] text-ink">CogniCare</h1>
           <p className="mt-1 text-[12px] leading-[18px] text-muted">
-            {firstRun ? "First run — create the clinician profile for this workspace." : "Choose a workspace to enter."}
+            {firstRun
+              ? "First run — create the clinician profile for this workspace."
+              : IS_STATIC
+                ? "Demo build — pick a workspace to enter."
+                : "Choose a workspace to enter."}
           </p>
         </div>
         <ThemeToggle />
       </div>
 
-      {firstRun ? (
+      {firstRun && !IS_STATIC ? (
         <form action="/api/auth/login" method="post" className="mt-7 space-y-3 border-t border-line pt-5">
           <input type="hidden" name="role" value="clinician" />
           <input type="hidden" name="bootstrap" value="1" />
@@ -82,7 +89,36 @@ export default async function LoginPage({
           <div className="mt-7 border-t border-line">
             {ROLES.map((entry) => {
               const disabled = entry.role === "patient" && patientCount === 0;
-              return (
+              const inner = (
+                <>
+                  <span className="min-w-0">
+                    <span className="block text-[13px] font-medium text-ink">{entry.title}</span>
+                    <span className="mt-0.5 block text-[11px] leading-4 text-faint">
+                      {disabled ? "No patient records yet — add one from the clinician workspace." : entry.body}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden
+                    className="flex-none text-[13px] text-faint group-hover:text-[var(--accent)]"
+                  >
+                    →
+                  </span>
+                </>
+              );
+
+              return IS_STATIC ? (
+                <div key={entry.role} className="border-b border-line">
+                  <Link
+                    href={entry.href}
+                    aria-disabled={disabled}
+                    className={`group flex w-full items-center justify-between gap-4 py-3.5 text-left ${
+                      disabled ? "pointer-events-none opacity-55" : ""
+                    }`}
+                  >
+                    {inner}
+                  </Link>
+                </div>
+              ) : (
                 <form
                   key={entry.role}
                   action="/api/auth/login"
@@ -95,18 +131,7 @@ export default async function LoginPage({
                     disabled={disabled}
                     className="group flex w-full items-center justify-between gap-4 py-3.5 text-left disabled:cursor-not-allowed disabled:opacity-55"
                   >
-                    <span className="min-w-0">
-                      <span className="block text-[13px] font-medium text-ink">{entry.title}</span>
-                      <span className="mt-0.5 block text-[11px] leading-4 text-faint">
-                        {disabled ? "No patient records yet — add one from the clinician workspace." : entry.body}
-                      </span>
-                    </span>
-                    <span
-                      aria-hidden
-                      className="flex-none text-[13px] text-faint group-hover:text-[var(--accent)]"
-                    >
-                      →
-                    </span>
+                    {inner}
                   </button>
                 </form>
               );

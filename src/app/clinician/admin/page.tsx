@@ -2,8 +2,6 @@ import { db } from "@/lib/db";
 import { Eyebrow } from "@/components/ui";
 import { DataManagement } from "@/components/clinician/DataManagement";
 
-export const dynamic = "force-dynamic";
-
 export default async function AdminPage() {
   const [patients, clinicians, inferences, tasks, biomarkers, alerts] = await db.$transaction([
     db.patient.count(),

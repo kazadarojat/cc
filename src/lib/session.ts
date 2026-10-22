@@ -14,7 +14,19 @@ export type Session = {
 
 const COOKIE = "cognicare_session";
 
-export async function getSession(): Promise<Session | null> {
+export async function getSession(zone?: Role): Promise<Session | null> {
+  // Static export (GitHub Pages) has no request cookies: every route is
+  // prerendered, so the demo identity for each trust zone is resolved at
+  // build time from the seeded database.
+  if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "1") {
+    const { db } = await import("@/lib/db");
+    if (zone === "patient") {
+      const p = await db.patient.findFirst({ orderBy: { id: "asc" } });
+      return p ? { role: "patient", subjectId: p.id, name: p.name } : null;
+    }
+    const c = await db.clinician.findFirst({ orderBy: { id: "asc" } });
+    return c ? { role: "clinician", subjectId: c.id, name: c.name } : null;
+  }
   const jar = await cookies();
   const raw = jar.get(COOKIE)?.value;
   if (!raw) return null;

@@ -2,8 +2,11 @@ import { db } from "@/lib/db";
 import { ageFrom, fmtDate, pct, titleCase } from "@/lib/format";
 import { latestInference, buildTimeline } from "@/lib/queries";
 import { PrintButton } from "@/components/clinician/PrintButton";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 export default async function ReportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

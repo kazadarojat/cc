@@ -19,3 +19,5 @@ dev.log.bak
 
 # vendored reference source for the Neurosight merge (not built)
 neurosight-reference/
+out/
+src/lib/*.server.ts

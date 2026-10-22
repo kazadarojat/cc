@@ -5,7 +5,11 @@ import { db } from "@/lib/db";
 import { ageFrom, fmtDate } from "@/lib/format";
 import { PatientTabs } from "@/components/PatientTabs";
 
-export const dynamic = "force-dynamic";
+// Static export: prerender one tree per patient record in the seeded DB.
+export async function generateStaticParams() {
+  const patients = await db.patient.findMany({ select: { id: true } });
+  return patients.map((p) => ({ id: p.id }));
+}
 
 export default async function PatientLayout({
   children,

@@ -2,8 +2,12 @@ import { db } from "@/lib/db";
 import { fmtDate } from "@/lib/format";
 import { Card, Eyebrow, SectionHeading } from "@/components/ui";
 import { addBiomarker, addClinicalAssessment, addImaging } from "@/lib/actions";
+import { patientStaticParams } from "@/lib/static-params";
+import { PatientActionForm } from "@/components/PatientActionForm";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 const field = "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm";
 const label = "font-mono text-[11px] uppercase tracking-wide text-faint";
@@ -33,7 +37,7 @@ export default async function DataPage({ params }: { params: Promise<{ id: strin
         {/* cognitive assessment */}
         <Card className="p-5">
           <SectionHeading>Cognitive assessment</SectionHeading>
-          <form action={addClinicalAssessment.bind(null, id)} className="flex flex-col gap-3">
+          <PatientActionForm patientId={id} kind="assessment" className="flex flex-col gap-3">
             <label className="flex flex-col gap-1">
               <span className={label}>Instrument</span>
               <select name="instrument" className={field} defaultValue="MoCA">
@@ -48,13 +52,13 @@ export default async function DataPage({ params }: { params: Promise<{ id: strin
             <button type="submit" className={submit}>
               Add assessment
             </button>
-          </form>
+          </PatientActionForm>
         </Card>
 
         {/* clinical note */}
         <Card className="p-5">
           <SectionHeading>Clinical note</SectionHeading>
-          <form action={addClinicalAssessment.bind(null, id)} className="flex flex-col gap-3">
+          <PatientActionForm patientId={id} kind="assessment" className="flex flex-col gap-3">
             <input type="hidden" name="instrument" value="note" />
             <label className="flex flex-col gap-1">
               <span className={label}>Note</span>
@@ -63,13 +67,13 @@ export default async function DataPage({ params }: { params: Promise<{ id: strin
             <button type="submit" className={submit}>
               Save note
             </button>
-          </form>
+          </PatientActionForm>
         </Card>
 
         {/* biomarker */}
         <Card className="p-5">
           <SectionHeading>Blood biomarker</SectionHeading>
-          <form action={addBiomarker.bind(null, id)} className="flex flex-col gap-3">
+          <PatientActionForm patientId={id} kind="biomarker" className="flex flex-col gap-3">
             <label className="flex flex-col gap-1">
               <span className={label}>Analyte</span>
               <select name="analyte" className={field} defaultValue="p-tau217">
@@ -103,13 +107,13 @@ export default async function DataPage({ params }: { params: Promise<{ id: strin
             <button type="submit" className={submit}>
               Add result
             </button>
-          </form>
+          </PatientActionForm>
         </Card>
 
         {/* imaging */}
         <Card className="p-5 lg:col-span-3">
           <SectionHeading>Imaging record</SectionHeading>
-          <form action={addImaging.bind(null, id)} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+          <PatientActionForm patientId={id} kind="imaging" className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <label className="flex flex-col gap-1 sm:w-48">
               <span className={label}>Modality</span>
               <select name="modality" className={field} defaultValue="MRI">
@@ -130,7 +134,7 @@ export default async function DataPage({ params }: { params: Promise<{ id: strin
             <button type="submit" className={submit}>
               Add imaging
             </button>
-          </form>
+          </PatientActionForm>
           <p className="mt-2 font-mono text-[11px] text-faint">
             The engine parses the report text for keywords (atrophy, amyloid-positive, tau-positive) to
             derive AT(N). Physician oversight of imaging interpretation is assumed.

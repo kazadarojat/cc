@@ -1,11 +1,13 @@
-name: Deploy Pages (showcase)
+name: Deploy CogniCare (static export)
+
+# Publishes the real CogniCare UI as a Next.js static export at
+# https://kazadarojat.github.io/cc/ — every route is prerendered from the
+# seeded SQLite database at build time, so the pages are the app itself
+# (client components hydrate; writes are journalled in localStorage).
 
 on:
   push:
     branches: [main]
-    paths:
-      - "site/**"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,16 +20,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Seed demo database
+        run: npm run db:reset
+
+      - name: Build static export
+        run: npm run build:static
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4

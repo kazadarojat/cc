@@ -3,8 +3,6 @@ import { Eyebrow } from "@/components/ui";
 import { consentRows } from "@/lib/queries";
 import { ConsentToggles } from "@/components/ConsentToggles";
 
-export const dynamic = "force-dynamic";
-
 const ROWS = [
   { modality: "speech", label: "Speech", description: "Speaking check-ins for language and voice patterns.", optional: false },
   { modality: "sleep", label: "Sleep", description: "Nightly sleep summaries from a wearable or phone.", optional: false },
@@ -27,7 +25,7 @@ const ROWS = [
 ];
 
 export default async function ConsentPage() {
-  const session = await getSession();
+  const session = await getSession("patient");
   const patientId = session!.subjectId;
   const active = await consentRows(patientId);
   const initial: Record<string, boolean> = {};

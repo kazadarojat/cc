@@ -1,8 +1,11 @@
 import { fmtDate, fmtMonth, titleCase } from "@/lib/format";
 import { Badge, Dot, Eyebrow } from "@/components/ui";
 import { buildTimeline, type TimelineEvent } from "@/lib/queries";
+import { patientStaticParams } from "@/lib/static-params";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  return patientStaticParams();
+}
 
 export default async function TimelinePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

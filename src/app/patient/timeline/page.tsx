@@ -3,8 +3,6 @@ import { fmtDate } from "@/lib/format";
 import { Dot, Eyebrow } from "@/components/ui";
 import { buildTimeline } from "@/lib/queries";
 
-export const dynamic = "force-dynamic";
-
 // patient-facing timeline: hide raw biomarker values and internal analysis detail
 const PATIENT_KINDS: Record<string, string> = {
   enrolment: "Started monitoring",
@@ -21,7 +19,7 @@ const PATIENT_KINDS: Record<string, string> = {
 };
 
 export default async function PatientTimeline() {
-  const session = await getSession();
+  const session = await getSession("patient");
   const events = (await buildTimeline(session!.subjectId))
     .filter((e) => PATIENT_KINDS[e.kind] && e.kind !== "discordance")
     .reverse();

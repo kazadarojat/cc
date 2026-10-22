@@ -3,8 +3,6 @@ import { getSession } from "@/lib/session";
 import { Eyebrow } from "@/components/ui";
 import { QuestionnaireForm } from "@/components/QuestionnaireForm";
 
-export const dynamic = "force-dynamic";
-
 const INSTRUMENTS: Record<string, { title: string; intro: string; items: string[] }> = {
   AD8: {
     title: "AD8 Dementia Screening Interview",
@@ -42,6 +40,10 @@ const INSTRUMENTS: Record<string, { title: string; intro: string; items: string[
   },
 };
 
+export function generateStaticParams() {
+  return Object.keys(INSTRUMENTS).map((instrument) => ({ instrument }));
+}
+
 export default async function QuestionnairePage({
   params,
 }: {
@@ -50,7 +52,7 @@ export default async function QuestionnairePage({
   const { instrument } = await params;
   const cfg = INSTRUMENTS[instrument];
   if (!cfg) notFound();
-  const session = await getSession();
+  const session = await getSession("patient");
 
   return (
     <div className="flex flex-col gap-5">

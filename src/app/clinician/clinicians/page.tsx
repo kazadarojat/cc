@@ -2,8 +2,6 @@ import { db } from "@/lib/db";
 import { Eyebrow } from "@/components/ui";
 import { ClinicianManager } from "@/components/clinician/ClinicianManager";
 
-export const dynamic = "force-dynamic";
-
 export default async function CliniciansPage() {
   const rows = await db.clinician.findMany({
     orderBy: { name: "asc" },

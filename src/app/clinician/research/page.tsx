@@ -1,8 +1,6 @@
 import { db } from "@/lib/db";
 import { Card, Disclaimer, Eyebrow, SectionHeading } from "@/components/ui";
 
-export const dynamic = "force-dynamic";
-
 type Row = { score: number; label: 1 | 0; sex: string; risk: number | null };
 
 function auroc(rows: Row[]): number {

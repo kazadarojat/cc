@@ -53,7 +53,7 @@ export function ThemeToggle() {
     <div
       role="group"
       aria-label="Colour theme"
-      className="inline-flex items-center rounded-[4px] border border-[var(--border)] p-[2px]"
+      className="inline-flex items-center rounded-[4px] border border-[var(--border-strong)] p-[2px]"
     >
       {OPTIONS.map((option) => {
         const active = ready && mode === option.value;
@@ -64,10 +64,10 @@ export function ThemeToggle() {
             title={option.title}
             aria-pressed={active}
             onClick={() => choose(option.value)}
-            className={`rounded-[3px] px-1.5 py-[3px] text-[11px] leading-4 ${
+            className={`rounded-[3px] px-1.5 py-[3px] text-[11px] leading-4 transition-colors ${
               active
-                ? "bg-[var(--surface-3)] font-medium text-ink"
-                : "text-faint hover:text-ink"
+                ? "bg-[var(--ink)] font-medium text-[var(--paper)]"
+                : "text-muted hover:text-ink"
             }`}
           >
             {option.label}

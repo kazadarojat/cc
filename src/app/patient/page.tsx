@@ -6,8 +6,6 @@ import { Badge, ButtonLink, Card, Disclaimer, Dot, Eyebrow, SectionHeading, Spar
 import { PageBanner } from "@/components/Banners";
 import { buildTimeline, inferenceHistory, latestInference } from "@/lib/queries";
 
-export const dynamic = "force-dynamic";
-
 const TREND_COPY: Record<string, { text: string; tone: "ok" | "watch" | "alert" | "uncertain" }> = {
   Stable: { text: "Your recent patterns look steady compared with your usual range.", tone: "ok" },
   Improving: { text: "Your recent patterns show improvement compared with your usual range.", tone: "ok" },
@@ -26,7 +24,7 @@ const TREND_COPY: Record<string, { text: string; tone: "ok" | "watch" | "alert" 
 };
 
 export default async function PatientHome() {
-  const session = await getSession();
+  const session = await getSession("patient");
   if (!session) redirect("/login");
   const patientId = session.subjectId;
   const patient = await db.patient.findUnique({ where: { id: patientId } });
