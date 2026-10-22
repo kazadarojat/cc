@@ -22,6 +22,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "file:./dev.db"
     steps:
       - uses: actions/checkout@v4
 
