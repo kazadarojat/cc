@@ -1,5 +1,8 @@
 # Cognicare — MVP prototype
 
+**Live UI showcase (static):** https://kazadarojat.github.io/cc/ — snapshots of the real
+interface with demo data. The app itself needs a Node host; Pages only serves the static preview.
+
 Multimodal, longitudinal cognitive-health monitoring and clinical decision support.
 This is a **working prototype** of the concept in the Cognicare PRD — not a medical device,
 not for clinical use, seeded entirely with synthetic patients.
