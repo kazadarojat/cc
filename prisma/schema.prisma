@@ -1,0 +1,337 @@
+// Cognicare — data model (MVP prototype)
+// Design notes:
+//  - Modality data lives in its own table (isolated), fused only by the AI engine.
+//  - Inference rows are immutable and carry the model + baseline version that produced them.
+//  - Consent is a set of grants; withdrawal is a new state, never a delete.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id                  String   @id @default(cuid())
+  name                String
+  dateOfBirth         DateTime
+  sex                 String // "F" | "M" | "other"
+  enrolledAt          DateTime @default(now())
+  monitoringStatus    String   @default("active") // active | baseline_forming | paused
+  clinicalHistory     String   @default("{}") // JSON: comorbidities, familyHistory, medications, vascularRisk, functionalStatus
+  cohortNote          String   @default("")
+  medicalRecordNumber String   @default("")
+  phone               String   @default("")
+  email               String   @default("")
+  assignedDoctorId    String?
+  assignedDoctor      Clinician? @relation(fields: [assignedDoctorId], references: [id], onDelete: SetNull)
+
+  consentGrants        ConsentGrant[]
+  speechSamples        SpeechSample[]
+  sleepNights          SleepNight[]
+  cognitiveTasks       CognitiveTask[]
+  questionnaires       Questionnaire[]
+  diaryEntries         DiaryEntry[]
+  clinicalAssessments  ClinicalAssessment[]
+  biomarkers           Biomarker[]
+  imagingStudies       Imaging[]
+  baselines            BaselineVersion[]
+  inferences           Inference[]
+  changeEvents         ChangeEvent[]
+  discordanceFlags     DiscordanceFlag[]
+  alerts               Alert[]
+  behaviourDays        BehaviourDaily[]
+}
+
+model ConsentGrant {
+  id           String    @id @default(cuid())
+  patient      Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId    String
+  modality     String // speech | sleep | questionnaire | cognitive_task | diary | behavioral | clinical | biomarker | imaging | research
+  purpose      String    @default("care") // care | research
+  grantedAt    DateTime  @default(now())
+  expiresAt    DateTime?
+  withdrawnAt  DateTime?
+
+  @@index([patientId])
+}
+
+model SpeechSample {
+  id         String   @id @default(cuid())
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  task       String // spontaneous | picture_description | reading | narrative
+  capturedAt DateTime
+  simulated  Boolean  @default(true)
+  // features
+  speechRate         Float // words / min
+  articulationRate   Float // syllables / sec
+  pauseDuration      Float // mean pause, sec
+  pauseFrequency     Float // pauses / min
+  hesitationRatio    Float // 0..1
+  lexicalDiversity   Float // 0..1 (type-token-ish)
+  semanticRichness   Float // 0..1
+  wordFindingDelay   Float // sec
+  syntacticComplexity Float // 0..1
+
+  @@index([patientId, capturedAt])
+}
+
+model SleepNight {
+  id                String   @id @default(cuid())
+  patient           Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId         String
+  night             DateTime
+  totalSleepMin     Float
+  efficiency        Float // 0..1
+  fragmentationIndex Float // events / hour
+  awakenings        Float
+  midSleepTime      Float // hours from midnight
+  regularityIndex   Float // 0..1 (higher = more regular)
+
+  @@index([patientId, night])
+}
+
+model CognitiveTask {
+  id           String   @id @default(cuid())
+  patient      Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId    String
+  takenAt      DateTime
+  memory       Float // 0..1
+  delayedRecall Float // 0..1
+  attention    Float // 0..1
+  orientation  Float // 0..1
+  fluency      Float // 0..1
+  executive    Float // 0..1
+  abilityEstimate Float // composite 0..1
+
+  // NeuroCheck battery (merged from Neurosight); null for the legacy simple task
+  source           String  @default("simple") // simple | neurocheck
+  neuroScore       Float?   // 0..100 composite
+  digitSpanMax     Float?
+  reactionTimeMs   Float?
+  stroopInhibition Float?   // 0..100 %
+  trailSeconds     Float?
+  fluencyWords     String?  // JSON string[]
+
+  @@index([patientId, takenAt])
+}
+
+model Questionnaire {
+  id         String   @id @default(cuid())
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  instrument String // AD8 | SCD-Q | MCQ
+  takenAt    DateTime
+  score      Float
+  maxScore   Float
+  subscores  String   @default("{}") // JSON
+  respondent String   @default("patient") // patient | informant
+
+  @@index([patientId, takenAt])
+}
+
+model DiaryEntry {
+  id        String   @id @default(cuid())
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId String
+  createdAt DateTime
+  text      String
+  domains   String   @default("[]") // JSON array: memory|language|attention|orientation|executive|daily_function
+  // Neurosight-merged: structured severity + situational context
+  severity  String   @default("mild") // mild | moderate | significant
+  context   String   @default("")
+
+  @@index([patientId, createdAt])
+}
+
+// Digital behavioural biomarkers (FR-07) — opt-in, patterns only, never content.
+model BehaviourDaily {
+  id                       String   @id @default(cuid())
+  patient                  Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId                String
+  day                      DateTime
+  routineDisruptionIndex   Float // 0..100 (higher = more schedule disruption)
+  activityOnsetShiftMin    Float // minutes later than personal usual start
+  typingSpeedCpm           Float // characters per minute
+  typingLatencyVarianceMs  Float // inter-key latency variability
+  screenInteractionLatencyMs Float // reaction time to UI prompts
+  mobilityRadiusKm         Float // daily movement expanse
+  simulated                Boolean @default(true)
+
+  @@index([patientId, day])
+}
+
+model ClinicalAssessment {
+  id            String   @id @default(cuid())
+  patient       Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId     String
+  instrument    String // MMSE | MoCA | note
+  administeredAt DateTime
+  administeredBy String   @default("")
+  score         Float?
+  maxScore      Float?
+  noteText      String   @default("")
+
+  @@index([patientId, administeredAt])
+}
+
+model Biomarker {
+  id        String   @id @default(cuid())
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId String
+  drawnAt   DateTime
+  analyte   String // p-tau217 | p-tau181 | Abeta42-40 | NfL | GFAP
+  value     Float
+  unit      String
+  refLow    Float?
+  refHigh   Float?
+  assay     String   @default("")
+
+  @@index([patientId, drawnAt])
+}
+
+model Imaging {
+  id         String   @id @default(cuid())
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  acquiredAt DateTime
+  modality   String // MRI | amyloid_PET | tau_PET
+  report     String   @default("")
+  findings   String   @default("{}") // JSON
+
+  @@index([patientId, acquiredAt])
+}
+
+model BaselineVersion {
+  id          String   @id @default(cuid())
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId   String
+  version     Int
+  windowStart DateTime
+  windowEnd   DateTime
+  stats       String   @default("{}") // JSON: { featureKey: { median, iqr, mad, n } }
+  createdAt   DateTime @default(now())
+
+  @@index([patientId, version])
+}
+
+model Inference {
+  id                     String   @id @default(cuid())
+  patient                Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId              String
+  producedAt             DateTime @default(now())
+  modelVersion           String
+  baselineVersion        Int
+  // dimension 1 — cognitive state
+  state                  String // Normal | SCD | MCI | Dementia
+  stateConfidence        Float // 0..1
+  // dimension 2 — biological AD evidence
+  adEvidence             String // None | Low | Moderate | Moderate-High | High | Unknown
+  adAmyloid              String   @default("unknown") // positive | negative | unknown
+  adTau                  String   @default("unknown")
+  adNeurodegeneration    String   @default("unknown")
+  // dimension 3 — progression risk
+  progressionRisk        Float? // 0..1, null when gated
+  progressionHorizonMonths Int   @default(12)
+  progressionConfidence  Float? // 0..1
+  sufficiency            String // sufficient | insufficient
+  sufficiencyNote        String   @default("")
+  // trajectory + composite
+  trajectory             String // Stable | Improving | Changing | Worsening | Uncertain
+  compositeIndex         Float // 0..1, higher = more impairment signal
+  confidenceLabel        String // High | Moderate | Low | Insufficient data
+  availableModalities    String   @default("[]") // JSON array
+  missingModalities      String   @default("[]") // JSON array
+  inputRefs              String   @default("{}") // JSON: counts per modality used
+  // Neurosight-merged: per-modality 0..100 risk + data-sufficiency
+  modalityScores         String   @default("{}") // JSON ModalityScores
+  dataSufficiency        String   @default("") // Complete | Adequate | Limited | Insufficient
+  confidencePenalty      Int      @default(0)
+  missingDataNote        String   @default("")
+  // Neurosight-merged: staging bands + reversible contributors
+  stageProbabilities     String   @default("{}") // JSON { Normal, SCD, MCI, Dementia }
+  progressionRisk24m     Float?
+  biologicalAdRiskBand   String   @default("Unknown") // Low | Moderate | High | Unknown
+  reversibleContributors String   @default("[]") // JSON ReversibleContributor[]
+  featureContributions   String   @default("[]") // JSON FeatureContribution[]
+  signalSummary          String   @default("[]") // JSON top marker signals (label, modality, baselineRaw, recentRaw, relChange, deviation)
+
+  explanation     Explanation?
+  recommendations Recommendation[]
+
+  @@index([patientId, producedAt])
+}
+
+model Explanation {
+  id          String    @id @default(cuid())
+  inference   Inference @relation(fields: [inferenceId], references: [id], onDelete: Cascade)
+  inferenceId String    @unique
+  factors     String    @default("[]") // JSON array of { label, modality, direction, weight, evidenceType, detail }
+  narrative   String    @default("")
+}
+
+model Recommendation {
+  id          String    @id @default(cuid())
+  inference   Inference @relation(fields: [inferenceId], references: [id], onDelete: Cascade)
+  inferenceId String
+  category    String // observe | repeat_assessment | review_reversible | specialist_referral | additional_biomarkers
+  rationale   String
+  status      String    @default("surfaced") // surfaced | acknowledged | dismissed
+
+  @@index([inferenceId])
+}
+
+model ChangeEvent {
+  id         String   @id @default(cuid())
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  detectedAt DateTime
+  feature    String
+  modality   String
+  direction  String // up | down
+  magnitude  Float // relative change vs baseline
+  method     String   @default("baseline-deviation")
+
+  @@index([patientId, detectedAt])
+}
+
+model DiscordanceFlag {
+  id          String   @id @default(cuid())
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId   String
+  detectedAt  DateTime
+  description String
+  modalities  String   @default("[]") // JSON
+
+  @@index([patientId, detectedAt])
+}
+
+model Alert {
+  id         String   @id @default(cuid())
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  tier       String // informational | change | multimodal | clinical_review
+  title      String
+  body       String
+  createdAt  DateTime @default(now())
+  readAt     DateTime?
+
+  @@index([patientId, createdAt])
+}
+
+model Clinician {
+  id          String  @id @default(cuid())
+  name        String
+  role        String // neurologist | geriatrician | psychiatrist | gp | memory_clinic
+  email       String  @unique
+  title       String  @default("") // e.g. "Sp.N, Subsp. NRE (K)"
+  sipNumber   String  @default("")
+  institution String  @default("")
+  phone       String  @default("")
+  createdAt   DateTime @default(now())
+
+  patients    Patient[]
+}

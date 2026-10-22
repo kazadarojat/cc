@@ -1,0 +1,21 @@
+node_modules
+.next
+out
+build
+*.log
+npm-debug.log*
+.env*.local
+.env
+.env.*
+!.env.example
+prisma/dev.db
+prisma/dev.db-journal
+dev.log
+.DS_Store
+next-env.d.ts
+tsconfig.tsbuildinfo
+dev.log.bak
+.design-backup-*/
+
+# vendored reference source for the Neurosight merge (not built)
+neurosight-reference/

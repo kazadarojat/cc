@@ -1,0 +1,1076 @@
+{
+ "url": "http://localhost:3000/login",
+ "at": "2026-10-22T14:21:55.731Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.02
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 900,
+     "screens": 1,
+     "words": 80,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 1.3,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 272,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "CogniCare",
+     "words": 1,
+     "lines": 1,
+     "size": 19,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.7
+     },
+     "measureChars": 125,
+     "max": {
+      "size": 19,
+      "vw": 1.3,
+      "font": "Plus Jakarta Sans",
+      "text": "CogniCare"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.17,
+     "smallText": 8
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0d0c",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.08,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#909a96",
+       "share": 0.58
+      },
+      {
+       "color": "#eef1ef",
+       "share": 0.25
+      },
+      {
+       "color": "#a7afac",
+       "share": 0.14
+      },
+      {
+       "color": "#d9a53f",
+       "share": 0.01
+      },
+      {
+       "color": "#58c08c",
+       "share": 0.01
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 5,
+     "radius": 4,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Dr. Andini Kusuma memory clinic",
+      "Dr. Rizal Pratama neurologist",
+      "Budi Hartono 72 yr · enrolled 10 Jan 202",
+      "Ratna Dewi 62 yr · enrolled 10 Jan 2025 ",
+      "Sari Wibowo 69 yr · enrolled 10 Jan 2025"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": [
+     "plus jakarta sans",
+     "plus jakarta sans fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 900,
+    "margins": {
+     "left": 377,
+     "right": 377
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "CogniCare",
+      "size": 19,
+      "top": 272,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 377,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.27,
+    "voidBox": {
+     "x": 0,
+     "y": 660,
+     "w": 1440,
+     "h": 240
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": true,
+    "ground": "#0b0d0c",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 377,
+     "right": 377
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 1.3,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 272,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       0,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.74,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ]
+    },
+    "title": {
+     "text": "CogniCare",
+     "size": 19,
+     "top": 272
+    },
+    "colourShare": 0
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.07
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1024,
+     "screens": 1,
+     "words": 80,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 2.5,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 334,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "CogniCare",
+     "words": 1,
+     "lines": 1,
+     "size": 19,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.7
+     },
+     "measureChars": 125,
+     "max": {
+      "size": 19,
+      "vw": 2.5,
+      "font": "Plus Jakarta Sans",
+      "text": "CogniCare"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.17,
+     "smallText": 8
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0d0c",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.08,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#909a96",
+       "share": 0.58
+      },
+      {
+       "color": "#eef1ef",
+       "share": 0.25
+      },
+      {
+       "color": "#a7afac",
+       "share": 0.14
+      },
+      {
+       "color": "#d9a53f",
+       "share": 0.01
+      },
+      {
+       "color": "#58c08c",
+       "share": 0.01
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 5,
+     "radius": 4,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Dr. Andini Kusuma memory clinic",
+      "Dr. Rizal Pratama neurologist",
+      "Budi Hartono 72 yr · enrolled 10 Jan 202",
+      "Ratna Dewi 62 yr · enrolled 10 Jan 2025 ",
+      "Sari Wibowo 69 yr · enrolled 10 Jan 2025"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": [
+     "plus jakarta sans",
+     "plus jakarta sans fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1024,
+    "margins": {
+     "left": 41,
+     "right": 41
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "CogniCare",
+      "size": 19,
+      "top": 334,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 41,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": true,
+    "ground": "#0b0d0c",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 41,
+     "right": 41
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 2.5,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 334,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       0,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.74,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ]
+    },
+    "title": {
+     "text": "CogniCare",
+     "size": 19,
+     "top": 334
+    },
+    "colourShare": 0.001
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.19
+   ],
+   "motion": {
+    "elements": 1,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 844,
+     "screens": 1,
+     "words": 80,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 4.9,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 145,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "CogniCare",
+     "words": 1,
+     "lines": 1,
+     "size": 19,
+     "font": "Plus Jakarta Sans"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Plus Jakarta Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Plus Jakarta Sans",
+      "size": 11,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.7
+     },
+     "measureChars": 56,
+     "max": {
+      "size": 19,
+      "vw": 4.9,
+      "font": "Plus Jakarta Sans",
+      "text": "CogniCare"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.17,
+     "smallText": 8
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0d0c",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.08,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#909a96",
+       "share": 0.58
+      },
+      {
+       "color": "#eef1ef",
+       "share": 0.25
+      },
+      {
+       "color": "#a7afac",
+       "share": 0.14
+      },
+      {
+       "color": "#d9a53f",
+       "share": 0.01
+      },
+      {
+       "color": "#58c08c",
+       "share": 0.01
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 5,
+     "radius": 4,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Dr. Andini Kusuma memory clinic",
+      "Dr. Rizal Pratama neurologist",
+      "Budi Hartono 72 yr · enrolled 10 Jan 202",
+      "Ratna Dewi 62 yr · enrolled 10 Jan 2025 ",
+      "Sari Wibowo 69 yr · enrolled 10 Jan 2025"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": [
+     "plus jakarta sans",
+     "plus jakarta sans fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 844,
+    "margins": {
+     "left": 41,
+     "right": 41
+    },
+    "sections": [
+     {
+      "sel": "section",
+      "tag": "section",
+      "top": 241,
+      "height": 139,
+      "words": 18,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Enter as a clinician",
+       "size": 13,
+       "tag": "h2"
+      },
+      "left": 41,
+      "right": 41,
+      "textLeft": 41,
+      "textRight": 54,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section",
+      "tag": "section",
+      "top": 404,
+      "height": 238,
+      "words": 39,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Enter as a patient",
+       "size": 13,
+       "tag": "h2"
+      },
+      "left": 41,
+      "right": 41,
+      "textLeft": 41,
+      "textRight": 60,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "CogniCare",
+      "size": 19,
+      "top": 145,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 41,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": true,
+    "ground": "#0b0d0c",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 41,
+     "right": 41
+    },
+    "hero": {
+     "text": "CogniCare",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 19,
+     "vw": 4.9,
+     "font": "Plus Jakarta Sans",
+     "weight": 600,
+     "tracking": -0.01,
+     "leading": 1.25,
+     "top": 145,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       0,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.74,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      19
+     ]
+    },
+    "title": {
+     "text": "CogniCare",
+     "size": 19,
+     "top": 145
+    },
+    "colourShare": 0.001
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "74% of the text is under 13px.",
+   "fix": "Data and labels read at 13–14px; keep 11–12px for sublines and axis ticks.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\desktop-fold.jpg",
+   "pages": [
+    "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\tablet-fold.jpg",
+   "pages": [
+    "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\mobile-fold.jpg",
+   "pages": [
+    "E:\\Kina Robotic\\CogniCare\\.taste-skill\\inspect-login-new\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
