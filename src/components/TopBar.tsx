@@ -42,11 +42,20 @@ export function TopBar({
           <span className="hidden h-3.5 w-px bg-[var(--border-strong)] md:block" aria-hidden />
           <span className="hidden truncate text-muted md:inline">{name}</span>
           <span className="hidden h-3.5 w-px bg-[var(--border-strong)] md:block" aria-hidden />
-          <form action="/api/auth/logout" method="post">
-            <button type="submit" className="text-[12px] text-muted underline-offset-4 hover:text-ink hover:underline">
+          {process.env.NEXT_PUBLIC_STATIC_EXPORT === "1" ? (
+            <Link
+              href="/login"
+              className="text-[12px] text-muted underline-offset-4 hover:text-ink hover:underline"
+            >
               Sign out
-            </button>
-          </form>
+            </Link>
+          ) : (
+            <form action="/api/auth/logout" method="post">
+              <button type="submit" className="text-[12px] text-muted underline-offset-4 hover:text-ink hover:underline">
+                Sign out
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </header>
