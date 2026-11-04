@@ -26,7 +26,8 @@ export async function submitQuestionnaire(patientId: string, formData: FormData)
   const instrument = String(formData.get("instrument"));
   const score = Number(formData.get("score"));
   const maxScore = Number(formData.get("maxScore"));
-  if (!instrument || Number.isNaN(score)) throw new Error("bad input");
+  if (!instrument || !Number.isFinite(score) || !Number.isFinite(maxScore) ||
+    maxScore <= 0 || score < 0 || score > maxScore) throw new Error("invalid questionnaire score");
   await db.questionnaire.create({
     data: {
       patientId,
@@ -43,6 +44,9 @@ export async function submitQuestionnaire(patientId: string, formData: FormData)
 
 export async function submitCognitiveTask(patientId: string, scores: Record<string, number>) {
   await assertAccess(patientId);
+  if (!scores || typeof scores !== "object" ||
+    Object.values(scores).some((v) => !Number.isFinite(v) || v < 0 || v > 1))
+    throw new Error("invalid cognitive task scores");
   const g = (k: string) => Math.max(0, Math.min(1, scores[k] ?? 0.7));
   const domains = ["memory", "delayedRecall", "attention", "orientation", "fluency", "executive"];
   const ability = domains.reduce((a, k) => a + g(k), 0) / domains.length;
@@ -80,6 +84,11 @@ export type NeuroCheckInput = {
 
 export async function submitNeuroCheck(patientId: string, r: NeuroCheckInput) {
   await assertAccess(patientId);
+  if (!r || Object.entries(r).some(([k,v]) => k !== "fluencyWords" &&
+    (typeof v !== "number" || !Number.isFinite(v) || v < 0)) ||
+    r.neuroScore > 100 || r.recallScore > 5 || r.attentionScore > 5 ||
+    !Array.isArray(r.fluencyWords) || r.fluencyWords.some((w) => typeof w !== "string"))
+    throw new Error("invalid NeuroCheck result");
   const g = (x: number) => Math.max(0, Math.min(1, x));
   const exec = g(((r.executiveScore + r.visualScanningScore) / 2) / 5);
   await db.cognitiveTask.create({
@@ -245,7 +254,8 @@ export async function addClinicalAssessment(patientId: string, formData: FormDat
     });
   } else {
     const score = Number(formData.get("score"));
-    if (Number.isNaN(score)) throw new Error("bad score");
+    if (!["MoCA", "MMSE"].includes(instrument) || !Number.isInteger(score) ||
+      score < 0 || score > 30) throw new Error("invalid clinical score");
     await db.clinicalAssessment.create({
       data: {
         patientId,
@@ -269,7 +279,11 @@ export async function addBiomarker(patientId: string, formData: FormData) {
   const unit = String(formData.get("unit") ?? "");
   const refLow = formData.get("refLow") ? Number(formData.get("refLow")) : null;
   const refHigh = formData.get("refHigh") ? Number(formData.get("refHigh")) : null;
-  if (!analyte || Number.isNaN(value)) throw new Error("bad input");
+  if (!analyte || !Number.isFinite(value) || !unit || unit.length > 30 ||
+    (refLow !== null && !Number.isFinite(refLow)) ||
+    (refHigh !== null && !Number.isFinite(refHigh)) ||
+    (refLow !== null && refHigh !== null && refLow > refHigh))
+    throw new Error("invalid biomarker values");
   await db.biomarker.create({
     data: { patientId, drawnAt: new Date(), analyte, value, unit, refLow, refHigh, assay: "manual entry" },
   });
@@ -299,6 +313,7 @@ export async function rerunInference(patientId: string) {
 export async function acknowledgeAlert(alertId: string, patientId: string) {
   const s = await assertAccess(patientId);
   if (s.role !== "clinician") throw new Error("clinician only");
-  await db.alert.update({ where: { id: alertId }, data: { readAt: new Date() } });
+  const result = await db.alert.updateMany({ where: { id: alertId, patientId }, data: { readAt: new Date() } });
+  if (result.count !== 1) throw new Error("alert not found for patient");
   revalidatePatient(patientId);
 }
