@@ -82,7 +82,7 @@ export default async function ResearchPage() {
         <p className="mt-2 max-w-[72ch] text-sm text-muted">
           De-identified aggregate over {patients.length} patients / {rows.length} analyses. Task:
           does the multimodal composite index separate objective impairment (state ≠ Normal) from
-          normal cognition? Illustrative on seeded synthetic data, not a validation study.
+          normal cognition? Illustrative synthetic data, NOT a validation study. The labels come from the same engine as the composite score (circular evaluation); 12-month risk is compared to current impairment, not observed 12-month progression. These numbers do not establish diagnostic or predictive performance.
         </p>
       </div>
 
