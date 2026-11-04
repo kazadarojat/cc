@@ -22,6 +22,10 @@ const swaps = [
 const run = (cmd, env = {}) =>
   execSync(cmd, { stdio: "inherit", cwd: root, env: { ...process.env, ...env } });
 
+// The server needs dynamic session-dependent layouts. Static Pages export
+// replaces this directive temporarily so seeded demo routes are prerendered.
+const dynamicLayouts = ["patient", "clinician"].map((zone) => path.join(root, "src", "app", zone, "layout.tsx"));
+const restoredLayouts = [];
 const stashed = [];
 let apiStashed = false;
 try {
@@ -38,6 +42,13 @@ try {
     fs.copyFileSync(stub, livePath);
     stashed.push([live, parked]);
   }
+  for (const filename of dynamicLayouts) {
+    const original = fs.readFileSync(filename, "utf8");
+    const directive = 'export const dynamic = "force-dynamic";';
+    if (!original.includes(directive)) throw new Error(`Missing dynamic directive: ${filename}`);
+    restoredLayouts.push([filename, original]);
+    fs.writeFileSync(filename, original.replace(directive, 'export const dynamic = "force-static";'));
+  }
   if (fs.existsSync(outDir)) fs.rmSync(outDir, { recursive: true, force: true });
 
   run("npx next build", {
@@ -45,7 +56,8 @@ try {
     NEXT_PUBLIC_STATIC_EXPORT: "1",
     DATABASE_URL: "file:./dev.db",
   });
-} finally {
+ } finally {
+  for (const [filename, original] of restoredLayouts) fs.writeFileSync(filename, original);
   for (const [live, parked] of stashed) {
     const livePath = path.join(lib, live);
     const parkPath = path.join(lib, parked);
