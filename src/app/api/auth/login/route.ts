@@ -9,11 +9,15 @@ function withSession(req: Request, target: string, payload: { role: Role; subjec
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
+    secure: process.env.NODE_ENV === "production",
   });
   return res;
 }
 
 export async function POST(req: Request) {
+  if (process.env.COGNICARE_ENABLE_DEMO_LOGIN !== "1" ||
+    (process.env.COGNICARE_SESSION_SECRET?.length ?? 0) < 32)
+    return NextResponse.json({ error: "Demo authentication disabled" }, { status: 503 });
   const form = await req.formData();
   const role = String(form.get("role") ?? "") as Role;
   const requestedId = String(form.get("subjectId") ?? "");

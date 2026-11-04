@@ -1,7 +1,7 @@
 # Cognicare — MVP prototype
 
 **Live UI showcase (static):** https://kazadarojat.github.io/cc/ — snapshots of the real
-interface with demo data. The app itself needs a Node host; Pages only serves the static preview.
+interface with demo data. The app itself needs a Node host. GitHub Pages is a prerendered demo: form submissions are stored only in browser localStorage and do not update the database or trigger server inference.
 
 Multimodal, longitudinal cognitive-health monitoring and clinical decision support.
 This is a **working prototype** of the concept in the Cognicare PRD — not a medical device,
@@ -33,7 +33,7 @@ clinical summary.
 ```bash
 npm install
 npm run setup     # prisma generate + db push + seed 3 demo patients
-npm run dev       # http://localhost:3000
+npm run dev       # http://localhost:3100
 ```
 
 If `npm install` reports skipped install scripts (hardened npm), approve them once:
@@ -47,7 +47,7 @@ Re-seed at any time with `npm run db:reset`.
 
 ## Demo accounts (seeded)
 
-No passwords — pick a role on the landing page.
+**Synthetic demo accounts only.** Server demo login is off by default. For a trusted local test, set `COGNICARE_ENABLE_DEMO_LOGIN=1` and a random `COGNICARE_SESSION_SECRET` containing at least 32 characters. Cookies are HMAC-signed, but the opt-in login still allows visitors to choose identities and is **not real authentication**. Never enable it on a public server or use real patient data.
 
 **Clinicians:** Dr. Andini Kusuma · Dr. Rizal Pratama
 
@@ -101,3 +101,12 @@ src/app/patient/…           patient portal
 - No FHIR/DICOM integration, no research plane, no audit store.
 
 See `cognicare-architecture` (the companion architecture plan) for how a real build would differ.
+
+## Important scientific and security caveats
+
+- **Research prototype, not a medical device.** Cognitive stages, AT(N) indicators, risk percentages, and clinical recommendations are illustrative and must not guide diagnosis or care.
+- Risk equations use manually tuned coefficients, not trained or calibrated clinical prediction models. The 12-month risk and extrapolated 24-month prediction are not validated probabilities.
+- The research dashboard measures synthetic, model-derived labels against scores from the same algorithm, not independently adjudicated outcomes. Its AUROC, sensitivity, and calibration cannot establish clinical accuracy.
+- Speech capture and passive behavioural measurements are simulated. No audio is recorded. The demo uses synthetic patients only.
+- On GitHub Pages, actions write to localStorage rather than SQLite. Changes do not update prerendered analytics or recompute the true model.
+- Server demo authentication is explicitly disabled by default. Signed cookies protect cookie integrity but do **not** make opt-in role selection suitable for production. Real deployment requires authenticated accounts, patient-specific access control, audit logs and privacy review.
