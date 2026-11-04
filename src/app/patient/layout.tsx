@@ -4,6 +4,10 @@ import { getSession } from "@/lib/session";
 import { TopBar } from "@/components/TopBar";
 import { PatientNav } from "@/components/PatientNav";
 
+// Authenticated server routes must never be prerendered without a request session.
+// The static showcase builder temporarily removes this directive.
+export const dynamic = "force-dynamic";
+
 export default async function PatientLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession("patient");
   if (!session) redirect("/login");
